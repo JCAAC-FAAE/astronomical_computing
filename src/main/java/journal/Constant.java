@@ -37,4 +37,10 @@ public class Constant {
 
 	/** Our default epoch. The Julian Day which represents noon on 2000-01-01. */
 	public static final double J2000 = 2451545.0;
+	
+	/** Speed of light in m/s, exact as it is defined. */
+	public static final double SPEED_OF_LIGHT = 299792458.0;
+	
+	/** Length of a sidereal day in days according to IERS Conventions. */
+	public static final double SIDEREAL_DAY_LENGTH = 1.00273781191135448;
 }

@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 
 /**
  * Utility functions
+ * @version April, 2025 (added method getLineSeparator(), to return the line break string of the system)
  * @version September, 2024 (first version)
  */
 public class Util {
@@ -27,8 +28,7 @@ public class Util {
      * @param d Value in degrees.
      * @return The reduced degree value.
      */
-    public static double normalizeDegrees(double d)
-    {
+    public static double normalizeDegrees(double d) {
 	d -= 360.0 * Math.floor(d / 360.0);
 	if (d < 0.) d += 360.0;
 	return d;
@@ -40,8 +40,7 @@ public class Util {
      * @param r Value in radians.
      * @return The reduced radian value.
      */
-    public static double normalizeRadians(double r)
-    {
+    public static double normalizeRadians(double r) {
 	double d = r - Constant.TWO_PI * Math.floor(r / Constant.TWO_PI);
 	if (d < 0.) d += Constant.TWO_PI;
 	return d;
@@ -54,8 +53,7 @@ public class Util {
      * @param decimals Number of decimal places.
      * @return String with the adequate format.
      */
-    public static String formatValue(double val, int decimals)
-    {
+    public static String formatValue(double val, int decimals) {
 	DecimalFormat formatter;
 	if (decimals > 0) {
 	    String out = repeatString("0", decimals);
@@ -92,8 +90,7 @@ public class Util {
      * @param nsec Number of decimal places in arcseconds.
      * @return String with the format $##&deg; ##' ##.##...'' ($ is the sign).
      */
-    public static String formatDEC(double dec, int nsec)
-    {
+    public static String formatDEC(double dec, int nsec) {
 	DecimalFormat formatter, formatter0;
 	if (nsec > 0) {
 	    String decimal = repeatString("0", nsec);
@@ -124,8 +121,7 @@ public class Util {
      * @param nsec Number of decimal places in seconds of time.
      * @return String with the format ##h ##m ##.##...s.
      */
-    public static String formatRA(double ra, int nsec)
-    {
+    public static String formatRA(double ra, int nsec) {
 	DecimalFormat formatter;
 	if (nsec > 0) {
 	    String dec = repeatString("0", nsec);
@@ -147,155 +143,77 @@ public class Util {
 	return out;
     }
     
-    
-    
-//
-//
-//    /**
-//     * Returns declination in radians given degrees, minutes, and arcseconds. A
-//     * minus sign can be set in degrees for southern positions.
-//     *
-//     * @param decg Degrees.
-//     * @param min Arcminutes.
-//     * @param sec Arcseconds
-//     * @return Declination in radians
-//     */
-//    public static double parseDeclination(String decg, double min, double sec)
-//    {
-//	double g = Double.parseDouble(decg);
-//	double dec = Math.abs(g) + min / Constant.SECONDS_PER_MINUTE + sec / Constant.SECONDS_PER_DEGREE;
-//	dec = dec * Constant.DEG_TO_RAD;
-//	if (decg.indexOf("-") >= 0)
-//	    dec = -dec;
-//	return dec;
-//    }
-//
-//    /**
-//     * Returns right ascension in radians given hours, minutes, and seconds of
-//     * time.
-//     *
-//     * @param hour Hours.
-//     * @param min Minutes.
-//     * @param sec Seconds.
-//     * @return Right ascension value in radians.
-//     */
-//    public static double parseRightAscension(double hour, double min, double sec)
-//    {
-//	double ra = Math.abs(hour) + min / Constant.SECONDS_PER_MINUTE + sec / Constant.SECONDS_PER_DEGREE;
-//	ra = ra / Constant.RAD_TO_HOUR;
-//	return ra;
-//
-//    }
-//
-//    /**
-//     * Separates a RA value into hours, minutes, and seconds of time.
-//     * @param ra The input right ascension in radians.
-//     * @return H, M, and S of time.
-//     */
-//    public static double[] getHMS(double ra) {
-//	double out[] = new double[3];
-//	double rah = ra * Constant.RAD_TO_HOUR;
-//	out[0] = (int) rah;
-//	double ram = (rah - out[0]) * 60.0;
-//	out[1] = (int) ram;
-//	out[2] = (ram - out[1]) * 60.0;
-//	return out;
-//    }
-//
-//    /**
-//     * Separates a DEC value into degrees, minutes, and seconds of arc.
-//     * @param dec The input declination in radians.
-//     * @return D, M, and S of arc, and sign in the fourth component. The
-//     * sign is 1 if DEC is positive, and -1 if it is negative.
-//     */
-//    public static double[] getDMSs(double dec) {
-//	double out[] = new double[4];
-//	double ded = Math.abs(dec * Constant.RAD_TO_DEG);
-//	out[0] = (int) ded;
-//	double dem = (ded - out[0]) * 60.0;
-//	out[1] = (int) dem;
-//	out[2] = (dem - out[1]) * 60.0;
-//	out[3] = 1;
-//	if (dec < 0.0) out[3] = -1;
-//	return out;
-//    }
-//
-//    /**
-//     * Rotate a set of rectangular coordinates from X axis. Used for rotating
-//     * from ecliptic to equatorial or back.
-//     *
-//     * @param c Array (x, y, z) or (x, y, z, vx, vy, vz).
-//     * @param angle Rotation angle in radians.
-//     * @return Rotated vector.
-//     */
-//    public static double[] rotateX(double c[], double angle)
-//    {
-//	double coords[] = c.clone();
-//
-//	double tmp = coords[1] * Math.cos(angle) - coords[2] * Math.sin(angle);
-//	coords[2] = coords[1] * Math.sin(angle) + coords[2] * Math.cos(angle);
-//	coords[1] = tmp;
-//
-//	// Treat velocities if they are present
-//	if (coords.length > 3)
-//	{
-//	    tmp = coords[4] * Math.cos(angle) - coords[5] * Math.sin(angle);
-//	    coords[5] = coords[4] * Math.sin(angle) + coords[5] * Math.cos(angle);
-//	    coords[4] = tmp;
-//	}
-//
-//	return coords;
-//    }
-//
-//    /**
-//     * Rotate a set of rectangular coordinates from Y axis.
-//     *
-//     * @param c Array (x, y, z) or (x, y, z, vx, vy, vz).
-//     * @param angle Rotation angle in radians.
-//     * @return Rotated vector.
-//     */
-//    public static double[] rotateY(double c[], double angle)
-//    {
-//	double coords[] = c.clone();
-//
-//	double tmp = coords[0] * Math.cos(angle) + coords[2] * Math.sin(angle);
-//	coords[2] = -coords[0] * Math.sin(angle) + coords[2] * Math.cos(angle);
-//	coords[0] = tmp;
-//
-//	// Treat velocities if they are present
-//	if (coords.length > 3)
-//	{
-//	    tmp = coords[3] * Math.cos(angle) + coords[5] * Math.sin(angle);
-//	    coords[5] = -coords[3] * Math.sin(angle) + coords[5] * Math.cos(angle);
-//	    coords[3] = tmp;
-//	}
-//
-//	return coords;
-//    }
-//
-//    /**
-//     * Rotate a set of rectangular coordinates from Z axis.
-//     *
-//     * @param c Array (x, y, z) or (x, y, z, vx, vy, vz).
-//     * @param angle Rotation angle in radians.
-//     * @return Rotated vector.
-//     */
-//    public static double[] rotateZ(double c[], double angle)
-//    {
-//	double coords[] = c.clone();
-//
-//	double tmp = coords[0] * Math.cos(angle) - coords[1] * Math.sin(angle);
-//	coords[1] = coords[0] * Math.sin(angle) + coords[1] * Math.cos(angle);
-//	coords[0] = tmp;
-//
-//	// Treat velocities if they are present
-//	if (coords.length > 3)
-//	{
-//	    tmp = coords[3] * Math.cos(angle) - coords[4] * Math.sin(angle);
-//	    coords[4] = coords[3] * Math.sin(angle) + coords[4] * Math.cos(angle);
-//	    coords[3] = tmp;
-//	}
-//
-//	return coords;
-//    }	
+    /**
+     * Get the system line separator.
+     * @return Line separator.
+     */
+    public static String getLineSeparator() {
+	return System.getProperty("line.separator");
+    }
+
+    /**
+     * Returns declination in radians given degrees, minutes, and arcseconds. A
+     * minus sign can be set in degrees for southern positions.
+     *
+     * @param decg Degrees.
+     * @param min Arcminutes.
+     * @param sec Arcseconds
+     * @return Declination in radians
+     */
+    public static double parseDeclination(String decg, double min, double sec) {
+	double g = Double.parseDouble(decg);
+	double dec = Math.abs(g) + min / 60.0 + sec / 3600.0;
+	dec = dec * Constant.DEG_TO_RAD;
+	if (decg.indexOf("-") >= 0) dec = -dec;
+	return dec;
+    }
+
+    /**
+     * Returns right ascension in radians given hours, minutes, and seconds of
+     * time.
+     *
+     * @param hour Hours.
+     * @param min Minutes.
+     * @param sec Seconds.
+     * @return Right ascension value in radians.
+     */
+    public static double parseRightAscension(double hour, double min, double sec) {
+	double ra = Math.abs(hour) + min / 60.0 + sec / 3600.0;
+	ra = ra * 15 * Constant.DEG_TO_RAD;
+	return ra;
+
+    }
+
+    /**
+     * Separates a RA value into hours, minutes, and seconds of time.
+     * @param ra The input right ascension in radians.
+     * @return H, M, and S of time.
+     */
+    public static double[] getHMS(double ra) {
+	double[] out = new double[3];
+	double rah = ra * Constant.RAD_TO_DEG / 15.0;
+	out[0] = (int) rah;
+	double ram = (rah - out[0]) * 60.0;
+	out[1] = (int) ram;
+	out[2] = (ram - out[1]) * 60.0;
+	return out;
+    }
+
+    /**
+     * Separates a DEC value into degrees, minutes, and seconds of arc.
+     * @param dec The input declination in radians.
+     * @return D, M, and S of arc, and sign in the fourth component. The
+     * sign is 1 if DEC is positive, and -1 if it is negative.
+     */
+    public static double[] getDMSs(double dec) {
+	double[] out = new double[4];
+	double ded = Math.abs(dec * Constant.RAD_TO_DEG);
+	out[0] = (int) ded;
+	double dem = (ded - out[0]) * 60.0;
+	out[1] = (int) dem;
+	out[2] = (dem - out[1]) * 60.0;
+	out[3] = 1;
+	if (dec < 0.0) out[3] = -1;
+	return out;
+    }
 }
