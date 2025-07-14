@@ -23,6 +23,29 @@
 ## Computation of Earth Orientation Angles and Coordinate Transformations
 > In this article we discuss the calculation of the TT-UT1 difference, which is fundamental for any calculation of astronomical phenomena, as it relates the time in which planetary ephemerides are expressed to the time associated with the Earth's rotation and, therefore, to the position of an observer on its surface. Apparent Sidereal Time, which is essentially the Earth's rotation angle, is directly related to UT1 and the equation of the equinoxes. Additionally, the calculation of precession and nutation parameters, as well as the obliquity of the ecliptic, is discussed, as these are necessary for various essential transformations between astronomical coordinate systems, which are addressed at the end of the article.
 
+<br><br>
+
+---
+
+[`No. 3, Nov. 2025, 65–78`](https://federacionastronomica.es/index.php/the-journal/archive/contents/706-calculo-de-efemerides)
+
+## Cálculo de efemérides
+> En este número veremos cómo reducir las coordenadas de un objeto para obtener la posición del mismo en el
+cielo para un observador situado sobre la superficie terrestre. Veremos el caso más sencillo en el que suponemos
+que ya tenemos la posición eclíptica geocéntrica del objeto referida al equinoccio medio de la fecha, de manera
+que no es necesario aplicar la corrección de precesión, vista en entregas anteriores. También se introducirá cierta
+cantidad de código adicional para tener bien organizado los resultados de los cálculos, incluyendo los resultados
+de operaciones potencialmente iterativas, como obtener los instantes de salida y puesta del objeto. En el caso de
+cuerpos estáticos, como las estrellas, esta iteración no es necesaria.
+
+## Ephemeris Computation
+> In this article we see how to reduce the coordinates of an object to obtain its position in the sky for an observer
+located on the Earth’s surface. We will examine the simplest case, in which we assume that we already have the
+geocentric ecliptic position of the object referred to the mean equinox of the date, so it is not necessary to apply
+the correction for precession, as discussed in previous articles in this Section. We also introduce some additional
+code to keep the calculation results well organized, including the results of potentially iterative operations, such as
+obtaining the rise and set times of the object. In the case of static bodies, such as stars, this iteration is not necessary.
+
 <!-- plantilla para incluir siguientes números en el mismo repositorio
 
 <br><br>
