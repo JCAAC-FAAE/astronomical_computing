@@ -4,6 +4,7 @@ package journal;
  * A class to perform coordinates transformations between equatorial, ecliptic, galactic, and supergalatic systems. 
  * The orientation of the galactic plane follows Jia-Cheng Liu et al. 2010 (see http://arxiv.org/abs/1010.3773).
  * The orientation of the supergalactic pole follows Lahav et al 2000 (see https://arxiv.org/abs/astro-ph/9809343).
+ * @version 1.1 Summer 2025: fixed an error in function rotate, to correctly rotate the optional velocity components
  */
 public class CoordinateSystem {
 
@@ -67,12 +68,15 @@ public class CoordinateSystem {
      */
     public static double[] rotate(double[] p, double[][] m) {
 	double[] out = new double[p.length];
-	for (int i=0; i<p.length; i++) {
-	    int ip = i;
-	    if (i > 2) ip = i - 3;
+	for (int i=0; i<3; i++) {
 	    out[i] = 0;
 	    for (int j=0; j<3; j++) {
-		out[i] += m[ip][j] * p[j];
+		out[i] += m[i][j] * p[j];
+	    }
+	    if (p.length == 3) continue;
+	    out[i + 3] = 0;
+	    for (int j=0; j<3; j++) {
+		out[i + 3] += m[i][j] * p[j + 3];
 	    }
 	}
 	return out;

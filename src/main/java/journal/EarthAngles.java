@@ -3,17 +3,19 @@ package journal;
 /**
  * Computes multiple parameters related to the orientation of the Earth: TT minus UT1, 
  * nutation angles, mean obliquity, precession angles, and local apparent sidereal time
+ * @version 1.1 Summer 2025: fixed an error in the nutation function, and output of TTminusUT1 set to 69.2s between 2018 and 2030
  */
 public class EarthAngles {
 
     /**
-     * Computes the difference between Terrestrial Time and Universal Time UT1
+     * Computes the difference between Terrestrial Time and Universal Time UT1.
+     * A Fix is applied to the year interval 2018-2030, keeping TT-UT1 = 69.2s. A revision will be needed.
      * @param jd The Julian day
      * @return TT-UT1 in seconds
      */
     public static double TTminusUT1(double jd) {
 	JulianDay julDay = new JulianDay(jd);
-	int year = julDay.year;
+	int year = julDay.year;	
 	int month = julDay.month;
 	double day = julDay.day + julDay.getDayFraction();
 
@@ -31,6 +33,8 @@ public class EarthAngles {
 		} else {
 			TTminusUT1 = -1027175.34776 + 2523.2566254 * x - 1.8856868491 * x2 + 5.8692462279E-5 * x3 + 3.3379295816E-7 * x4 + 
 				1.7758961671E-10 * x2 * x3 - 2.7889902806E-13 * x2 * x4 + 1.0224295822E-16 * x3 * x4 - 1.2528102371E-20 * x8;
+			// Apply a fix to TT-UT1 between 2018 and 2030 (for now) due to TT-UT1 no longer increasing at the previous rate
+			if (year >= 2018 && year <= 2030) TTminusUT1 = 69.2;
 		}
 		c0 = 0.91072 * (ndot + 25.858) ;
 	}
@@ -59,16 +63,14 @@ public class EarthAngles {
     public static double[] nutation(double jd) {
 	double t = toCenturiesRespectJ2000(jd, true);
 	
-	// Compute approximate nutation
 	// Mean longitude of the ascending node of the Moon
-	double om = (125.04452 - 1934.136261 * t + 0.0020708 * t * t + t * t * t / 450000.0) * Constant.DEG_TO_RAD;
+	double M1 = (124.90 - 1934.134 * t + 0.002063 * t * t) * Constant.DEG_TO_RAD;
 	// 2 * Mean longitude of Sun
-	double l2 = 2 * (280.4665 + 36000.7698 * t) * Constant.DEG_TO_RAD;
-	// 2 * Mean longitude of Moon
-	double l2p = 2 * (218.3165 + 481267.8813 * t) * Constant.DEG_TO_RAD;
+	double M2 = (201.11 + 72001.5377 * t + 0.00057 * t * t) * Constant.DEG_TO_RAD;
 	
-	double nutLon = -17.20 * Math.sin(om) - 1.32 * Math.sin(l2) - 0.23 * Math.sin(l2p) + 0.21 * Math.sin(2 * om);
-	double nutObl = 9.20 * Math.cos(om) + 0.57 * Math.cos(l2) + 0.1 * Math.cos(l2p) - 0.09 * Math.cos(2 * om);
+	// Compute approximate nutation
+	double nutLon = (-(17.2026 + 0.01737 * t) * Math.sin(M1) + (-1.32012 + 0.00013 * t) * Math.sin(M2) + .2088 * Math.sin(2 * M1));
+	double nutObl = ((9.2088 + .00091 * t) * Math.cos(M1) + (0.552204 - 0.00029 * t) * Math.cos(M2) - .0904 * Math.cos(2 * M1));
 	
 	return new double[] {nutLon * Constant.ARCSEC_TO_RAD, nutObl * Constant.ARCSEC_TO_RAD};
     }
