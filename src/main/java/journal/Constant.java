@@ -2,6 +2,7 @@ package journal;
 
 /**
  * Useful constants
+ * @version 1.1 Summer 2025: very little change to AU contant to make it consistent with DE440, no practical effects
  */
 public class Constant {
     
@@ -14,8 +15,8 @@ public class Constant {
 	/* Arcseconds to radians */
 	public static final double ARCSEC_TO_RAD = (DEG_TO_RAD / 3600.0);
 
-	/** Astronomical Unit in km. As defined by JPL. */
-	public static final double AU = 149597870.691;
+	/** Astronomical Unit in km. As defined by JPL in DE440. */
+	public static final double AU = 149597870.7;
 
 	/** Earth equatorial radius in km. IERS 2003 Conventions. */
 	public static final double EARTH_RADIUS = 6378.1366;
