@@ -84,11 +84,11 @@ public class EarthAngles {
 	double t = toCenturiesRespectJ2000(jd, true);
 
 	// IAU 1976 formulation, still used by Horizons
-	double eps0 = 84381.448;
-	double[] pol = {-468150., -590., 181320.};
-	// J. Laskar's expansion comes from "Secular terms of classical planetary theories using the results of general theory," Astronomy and Astrophysics 157, 59070 (1986)
 	//double eps0 = 84381.448;
-	//double[] pol = {-468093., -155., 199925., -5138., -24967., -3905., 712., 2787., 579., 245. };
+	//double[] pol = {-468150., -590., 181320.};
+	// J. Laskar's expansion comes from "Secular terms of classical planetary theories using the results of general theory," Astronomy and Astrophysics 157, 59070 (1986)
+	double eps0 = 84381.448;
+	double[] pol = {-468093., -155., 199925., -5138., -24967., -3905., 712., 2787., 579., 245. };
 	// Capitaine et al. Astronomy and Astrophysics 412, 567-586, (2003), Hilton et al. 2006, 
 	//double eps0 = 84381.406;
 	//double[] pol = {-468367.69, -183.1, 200340., -5760., -43400.};
