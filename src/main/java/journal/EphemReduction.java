@@ -2,6 +2,7 @@ package journal;
 
 /**
  * A class to reduce the position of a body to obtain the ephemerides as visible from a given observer, include rise/set times.
+ * @version 1.1 Summer 2025: Added line 97 to set a minimum value for the distance body - earth center, to allow getting the position of the center of the Earth
  */
 public class EphemReduction {
 
@@ -93,6 +94,7 @@ public class EphemReduction {
 	double geocLat = (obsLat - .1925 * Math.sin(2 * obsLat) * Constant.DEG_TO_RAD);
 	double geocR = 1.0 - Math.pow(Math.sin(obsLat), 2) / 298.257;
 	double eradius = (geocR * Constant.EARTH_RADIUS + obsAlt * 0.001);
+	if (pos[2] < 1E-12) pos[2] = 1E-12;
 	double radiusAU = eradius / (pos[2] * Constant.AU);
 	if (!geocentric) {
 	    double cosLat = Math.cos(geocLat); 
