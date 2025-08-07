@@ -4,7 +4,7 @@ package journal;
  * Computes multiple parameters related to the orientation of the Earth: TT minus UT1, 
  * nutation angles, mean obliquity, precession angles, and local apparent sidereal time
  * @version 1.1 Summer 2025: re-implementation of nutation with accuracy better than 0.1" in ecl lon/lat. 
- * Output of TTminusUT1 set to 69.2s between 2018 and 2030
+ * Output of TTminusUT1 set to 69.2s between 2018 and 2030. Obliquity algorithm set to Laskar for consistency
  */
 public class EarthAngles {
 
