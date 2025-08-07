@@ -3,7 +3,8 @@ package journal;
 /**
  * Computes multiple parameters related to the orientation of the Earth: TT minus UT1, 
  * nutation angles, mean obliquity, precession angles, and local apparent sidereal time
- * @version 1.1 Summer 2025: fixed an error in the nutation function, and output of TTminusUT1 set to 69.2s between 2018 and 2030
+ * @version 1.1 Summer 2025: re-implementation of nutation with accuracy better than 0.1" in ecl lon/lat. 
+ * Output of TTminusUT1 set to 69.2s between 2018 and 2030
  */
 public class EarthAngles {
 
@@ -63,14 +64,26 @@ public class EarthAngles {
     public static double[] nutation(double jd) {
 	double t = toCenturiesRespectJ2000(jd, true);
 	
+	// Mean elongation of Moon
+	double D = (297.85036 + 445267.111480 * t - 0.0019142 * t * t + t * t * t / 189474.) * Constant.DEG_TO_RAD;
+	// Mean anomaly of Sun (Earth)
+	double M = (357.52772 + 35999.050340 * t - 0.0001603 * t * t - t * t * t / 300000.) * Constant.DEG_TO_RAD;
+	// Mean anomaly of Moon
+	double Mp = (134.96298 + 477198.867398 * t + 0.0086972 * t * t + t * t * t / 56250.) * Constant.DEG_TO_RAD;
+	// Moon's argument of latitude
+	double F = (93.27191 + 483202.017538 * t - 0.0036825 * t * t + t * t * t / 327270.) * Constant.DEG_TO_RAD;
 	// Mean longitude of the ascending node of the Moon
-	double M1 = (124.90 - 1934.134 * t + 0.002063 * t * t) * Constant.DEG_TO_RAD;
-	// 2 * Mean longitude of Sun
-	double M2 = (201.11 + 72001.5377 * t + 0.00057 * t * t) * Constant.DEG_TO_RAD;
+	double OM = (125.04452 - 1934.136261 * t + 0.0020708 * t * t + t * t * t / 450000.) * Constant.DEG_TO_RAD;
 	
-	// Compute approximate nutation
-	double nutLon = (-(17.2026 + 0.01737 * t) * Math.sin(M1) + (-1.32012 + 0.00013 * t) * Math.sin(M2) + .2088 * Math.sin(2 * M1));
-	double nutObl = ((9.2088 + .00091 * t) * Math.cos(M1) + (0.552204 - 0.00029 * t) * Math.cos(M2) - .0904 * Math.cos(2 * M1));
+	// Compute approximate nutation (see Meeus, page 133, terms up to 0.02"). Accuracy better than 0.08", 0.05" respect IAU1980 nutation
+	double a2 = 2.0 * (F + OM - D), a3 = 2.0 * (F + OM);
+	double nutLon = (-(17.1996 + 0.01742 * t) * Math.sin(OM) - (1.3187 + 0.00016 * t) * Math.sin(a2) - (.2274 - 0.00002 * t) * Math.sin(a3)) + 
+		(0.2062 + 0.00002 * t) * Math.sin(2 * OM) + (0.1426 - 0.00034 * t) * Math.sin(M) + (0.0712 + 0.00001 * t) * Math.sin(Mp) + 
+		(-0.0517 + 0.00012 * t) * Math.sin(a2 + M) - (0.0386 - 0.00004 * t) * Math.sin(2*F+OM) - 0.0301 * Math.sin(2*(F+OM)+Mp) + 
+		(0.0217 - 0.00005 * t) * Math.sin(a2 - M);
+	double nutObl = ((9.2025 + .00089 * t) * Math.cos(OM) + (0.5736 - 0.00031 * t) * Math.cos(a2) + (.0977 - 0.00005 * t) * Math.cos(a3)) + 
+		(-0.0895 + 0.00005 * t) * Math.cos(2 * OM) + (0.0054 - 0.00001 * t) * Math.cos(M) - 0.00007 * Math.cos(Mp) + 
+		(0.0224 - 0.00006 * t) * Math.cos(a2 + M) + 0.0200 * Math.cos(2*F+OM);
 	
 	return new double[] {nutLon * Constant.ARCSEC_TO_RAD, nutObl * Constant.ARCSEC_TO_RAD};
     }
