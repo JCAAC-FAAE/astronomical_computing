@@ -46,6 +46,31 @@ the correction for precession, as discussed in previous articles in this Section
 code to keep the calculation results well organized, including the results of potentially iterative operations, such as
 obtaining the rise and set times of the object. In the case of static bodies, such as stars, this iteration is not necessary.
 
+<br><br>
+
+---
+
+[`No. 4, Dec. 2025, 45–60`](https://www.federacionastronomica.es/index.php/the-journal/archive/contents/751-efemerides-precisas-del-sol-y-la-luna)
+
+## Efemérides precisas del Sol y la Luna
+> En este número presentamos algoritmos para el cálculo preciso de la posición del Sol y la Luna para un observador
+en la Tierra, utilizando el procedimiento de reducción explicado en el número anterior. Para alcanzar la mejor
+consistencia posible, respecto de la última integración numérica disponible del JPL, se han modificado algoritmos
+clásicos, de manera notable en el caso de la Luna. Las discrepancias máximas que se obtienen son de 2" para la
+posición geocéntrica del Sol, y en torno a 15" para la de la Luna, durante al menos 4000 años alrededor del año
+2000. También se presentan cambios que se han introducido en ficheros publicados con anterioridad, para corregir
+algunos problemas.
+
+## Accurate Ephemeris of the Sun and the Moon
+
+> In this article we will see how to compute the accurate positions of the Sun and the Moon for any observer on
+Earth, using the reduction procedures presented in a previous article in this Section. To achieve the maximum
+consistency, with respect to the latest JPL numerical integration, some classic algorithms has been modified,
+especially for the Moon. The maximum discrepancies found are of 2" for the geocentric posicion of the Sun,
+and around 15" for that of the Moon, during at least 4000 years around the year 2000. Some corrections to files
+published previously are also presented, solving different problems identified.
+
+
 <!-- plantilla para incluir siguientes números en el mismo repositorio
 
 <br><br>
@@ -66,3 +91,4 @@ obtaining the rise and set times of the object. In the case of static bodies, su
 ---
 
 :copyright: **Tomás Alonso Albi** 2024-2025. Licensed under the EUPL.
+
