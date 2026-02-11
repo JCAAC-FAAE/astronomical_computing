@@ -59,6 +59,36 @@ obtaining the rise and set times of the object. In the case of static bodies, su
 
 > In this article we will see how to compute the accurate positions of the Sun and the Moon for any observer on Earth, using the reduction procedures presented in a previous article in this Section. To achieve the maximum consistency, with respect to the latest JPL numerical integration, some classic algorithms has been modified, especially for the Moon. The maximum discrepancies found are of 2" for the geocentric posicion of the Sun, and around 15" for that of the Moon, during at least 4000 years around the year 2000. Some corrections to files published previously are also presented, solving different problems identified.
 
+---
+
+[`No. 5, Mar. 2026, xx–xx`](https://federacionastronomica.es/index.php/the-journal/archive/contents/751-efemerides-precisas-del-sol-y-la-luna)
+
+## Efemérides precisas mediante integración numérica. Aplicación a los planetas y al asteroide Apophis
+
+> En esta entrega introduciremos un método extraordinariamente preciso para el cálculo de las efemérides
+de planetas y cuerpos menores: la integración numérica. Veremos una implementación simplificada que
+resulta en un código eficiente y de extensión reducida, que gracias a la gran velocidad de los ordenadores
+actuales, puede ejecutarse con Java en menos de un segundo. Otros métodos tradicionales, utilizados aún
+hoy en la mayoría de las situaciones, son mucho menos precisos y más extensos. Por supuesto, también
+son más veloces, pero en la mayoría de las situaciones esa rapidez ya no es relevante en la práctica.
+Una gran ventaja de este método es que permite calcular con gran precisión la posición de asteroides
+y cometas arbitrarios, sin aumentar significativamente la extensión del código. Analizaremos en detalle
+los casos de Apophis y 2024 YR4. Apophis es un objeto potencialmente peligroso para la Tierra, con un
+tamaño de unos 400 m, que pasará muy cerca de la Tierra el 13 de abril de 2029. Por su parte, 2024 YR4
+podría colisionar con la Luna en 2032.
+
+## Accurate ephemerides with numerical integration. Application to the planets and the asteroid Apophis
+> In this article we will introduce an extraordinary accurate method to compute the ephemerides of planets
+and minor bodies: the numerical integration. We will see a simplified implementation that results in an
+efficient and short code, that due to the high speed of current computers, can be executed with Java in less
+than a second. Other traditional methods, still used today in most situations, are less accurate and longer.
+Of course, they are also faster, but in most situations that speed is no longer relevant in practice.
+An important advantage of this method is that it allows to compute, with great accuracy, the position
+of any asteroid or comet, without increasing significantly the extension of the code. We will analyze in
+detail the cases of Apophis and 2024 YR4. Apophis is a potentially dangerous body for the Earth, with a
+size of around 400 m, that will pass very close to the Earth on April, 13, 2029. On the other hand, 2024
+YR4 may collide with the Moon in 2032.
+
 
 <!-- plantilla para incluir siguientes números en el mismo repositorio
 
@@ -79,6 +109,6 @@ obtaining the rise and set times of the object. In the case of static bodies, su
 
 ---
 
-:copyright: **Tomás Alonso Albi** 2024-2025. Licensed under the EUPL.
+:copyright: **Tomás Alonso Albi** 2024-2026. Licensed under the EUPL.
 
 
