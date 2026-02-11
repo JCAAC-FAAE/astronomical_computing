@@ -35,7 +35,7 @@ public class EarthAngles {
 			TTminusUT1 = -1027175.34776 + 2523.2566254 * x - 1.8856868491 * x2 + 5.8692462279E-5 * x3 + 3.3379295816E-7 * x4 + 
 				1.7758961671E-10 * x2 * x3 - 2.7889902806E-13 * x2 * x4 + 1.0224295822E-16 * x3 * x4 - 1.2528102371E-20 * x8;
 			// Apply a fix to TT-UT1 between 2018 and 2030 (for now) due to TT-UT1 no longer increasing at the previous rate
-			if (year >= 2018 && year <= 2030) TTminusUT1 = 69.2;
+			if (year >= 2018 && year <= 2035) TTminusUT1 = 69.2;
 		}
 		c0 = 0.91072 * (ndot + 25.858) ;
 	}

@@ -78,7 +78,34 @@ public class EphemData {
 	double dph = ((rp * rp + rbody * rbody - rsun * rsun) / (2.0 * rp * rbody));
 	illuminationPhase = 100 * (1.0 + dph) * 0.5;
     }
+    
+    /**
+     * Returns the apparent magnitude assuming the body is an asteroid. See Meeus' Astronomical Algorithms, pages 216 and 217
+     * @param sun The ephemeris object for the Sun
+     * @param magAbs Absolute magnitude of the body
+     * @param magSlope Magnitude slope of the body
+     */
+    public double getAsteroidApparentMagnitude(EphemData sun, double magAbs, double magSlope) {
+	double dlon = rightAscension - sun.rightAscension;
+	double cosElong = (Math.sin(sun.declination) * Math.sin(declination) + 
+		Math.cos(sun.declination) * Math.cos(declination) * Math.cos(dlon));
 
+	double rsun = sun.distance;
+	double rbody = distance;
+	// Use elongation cosine as trick to solve the rectangle and get rp (distance body - sun)
+	double rp = Math.sqrt(-(cosElong * 2.0 * rsun * rbody - rsun * rsun - rbody * rbody));
+
+	double dph = ((rp * rp + rbody * rbody - rsun * rsun) / (2.0 * rp * rbody));
+	illuminationPhase = 100 * (1.0 + dph) * 0.5;
+	
+	double phaseAngle = Math.acos(dph);
+	double tmp = Math.tan(phaseAngle * 0.5);
+	double phi1 = Math.exp(-3.33 * Math.pow(tmp, 0.63));
+	double phi2 = Math.exp(-1.87 * Math.pow(tmp, 1.22));
+	double apMag = magAbs + (float) (5.0 * Math.log10(distance * rp)) - 2.5 * Math.log10(phi1 * (1.0 - magSlope) + phi2 * magSlope);	
+	return apMag;
+    }
+    
     /**
      * Returns a date as a string yyyy/mm/dd hh:mm:ss UT
      * @param jd The Julian day
