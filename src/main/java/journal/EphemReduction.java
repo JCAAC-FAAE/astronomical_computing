@@ -3,6 +3,7 @@ package journal;
 /**
  * A class to reduce the position of a body to obtain the ephemerides as visible from a given observer, include rise/set times.
  * @version 1.1 Summer 2025: Added line 97 to set a minimum value for the distance body - earth center, to allow getting the position of the center of the Earth
+ * @version 1.2 September 2025: Added lines 141-143 to correct the angular radius of the body for the distance change in the topocentric correction
  */
 public class EphemReduction {
 
@@ -137,6 +138,10 @@ public class EphemReduction {
 	// Get apparent elevation
 	alt = getApparentElevation(alt);
 
+	// Correct angular radius for the topocentric distance change
+	double size = Math.tan(pos[3]) * pos[2];
+	pos[3] = Math.atan(size / dist);
+	
 	double tmp = twilight.elevation * Constant.DEG_TO_RAD;
 	// Consider the angular radius (pos[3]) for rise, set, transit times when using the HORIZON_34arcmin twilight. 
 	// Removing angular radius here would do calculations for the center of the disk instead of the lower/upper limb.
