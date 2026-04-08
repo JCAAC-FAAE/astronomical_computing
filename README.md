@@ -61,7 +61,7 @@ obtaining the rise and set times of the object. In the case of static bodies, su
 
 ---
 
-[`No. 5, Mar. 2026, xx–xx`](https://federacionastronomica.es/index.php/the-journal/archive/contents/751-efemerides-precisas-del-sol-y-la-luna)
+[`No. 5, Apr. 2026, 59–84`](https://www.federacionastronomica.es/index.php/the-journal/archive/contents/808-efemerides-precisas-mediante-integracion-numerica)
 
 ## Efemérides precisas mediante integración numérica. Aplicación a los planetas y al asteroide Apophis
 
