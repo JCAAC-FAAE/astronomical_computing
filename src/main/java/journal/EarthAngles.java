@@ -162,7 +162,7 @@ public class EarthAngles {
 	// to the equation of equinoxes, taking effect since 1997-02-27
 	double dt = toCenturiesRespectJ2000(jd, true);
 	double omega = 125.04452 - 1934.136261 * dt + 0.0020708 * dt * dt + (dt * dt * dt) / 450000;
-	omega = Util.normalizeDegrees(omega);
+	omega = Util.normalizeDegrees(omega) * Constant.DEG_TO_RAD;
 
 	double nutLon = nutation(jd)[0]; // First element of the array returned by nutation
 	double last = Util.normalizeRadians(
