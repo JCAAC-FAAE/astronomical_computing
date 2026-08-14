@@ -69,7 +69,7 @@ public class EphemSun extends EphemReduction {
 	// Compute aberration, substracted later
 	double aberration = (993 - 17 * Math.cos(3.10 + 62830.14 * t)) * 1E-7;
 	
-	return new double[] { L - aberration, getSolarGeocenticEclipticLatitude(t * 10), R, Math.atan(696250.0 / (R * Constant.AU)) };
+	return new double[] { L - aberration, getSolarGeocenticEclipticLatitude(t * 10), R, Math.atan(696000.0 / (R * Constant.AU)) };
     }
     
     /**

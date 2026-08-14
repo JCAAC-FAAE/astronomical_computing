@@ -105,6 +105,28 @@ public class EphemData {
 	double apMag = magAbs + (float) (5.0 * Math.log10(distance * rp)) - 2.5 * Math.log10(phi1 * (1.0 - magSlope) + phi2 * magSlope);	
 	return apMag;
     }
+
+    /**
+     * Returns the apparent magnitude assuming the body is a natutal satellite. See Meeus' Astronomical Algorithms, pages 216 and 217
+     * @param sun The ephemeris object for the Sun
+     * @param magAbs Absolute magnitude of the body
+     */
+    public double getNaturalSatelliteApparentMagnitude(EphemData sun, double magAbs) {
+	double dlon = rightAscension - sun.rightAscension;
+	double cosElong = (Math.sin(sun.declination) * Math.sin(declination) + 
+		Math.cos(sun.declination) * Math.cos(declination) * Math.cos(dlon));
+
+	double rsun = sun.distance;
+	double rbody = distance;
+	// Use elongation cosine as trick to solve the rectangle and get rp (distance body - sun)
+	double rp = Math.sqrt(-(cosElong * 2.0 * rsun * rbody - rsun * rsun - rbody * rbody));
+
+	double dph = ((rp * rp + rbody * rbody - rsun * rsun) / (2.0 * rp * rbody));
+	illuminationPhase = 100 * (1.0 + dph) * 0.5;
+	
+	double apMag = magAbs + (float) (5.0 * Math.log10(distance * rp));
+	return apMag;
+    }
     
     /**
      * Returns a date as a string yyyy/mm/dd hh:mm:ss UT
@@ -123,5 +145,53 @@ public class EphemData {
 	out += Util.fmt02((int) hms[1], ":");
 	out += Util.fmt02((int) (hms[2] + 0.5), " UT");
 	return out;
+    }
+
+    /**
+     * Returns the angular distance between two bodies
+     * @param moonData Position of body 1
+     * @param sunData Position of body 2
+     * @return Angular distance in radians
+     */
+    public static double getAngularDistance(EphemData moonData, EphemData sunData) {
+	double[] xyz1 = CoordinateSystem.sphericalToCartesian(moonData.rightAscension, moonData.declination);
+	double[] xyz2 = CoordinateSystem.sphericalToCartesian(sunData.rightAscension, sunData.declination);
+	double dx = xyz1[0] - xyz2[0];
+	double dy = xyz1[1] - xyz2[1];
+	double dz = xyz1[2] - xyz2[2];
+	double r2 = dx * dx + dy * dy + dz * dz;
+	return Math.acos(1.0 - r2 * 0.5);
+    }
+
+    /**
+     * Returns the position angle between two bodies in equatorial coordinates
+     * @param moonData Position of body 1
+     * @param sunData Position of body 2
+     * @return Position angle in radians
+     */
+    public static double getPositionAngle(EphemData moonData, EphemData sunData) {
+	double dl = sunData.rightAscension - moonData.rightAscension;
+	double cbp = Math.cos(sunData.declination);
+	double y = Math.sin(dl) * cbp;
+	double x = Math.sin(sunData.declination) * Math.cos(moonData.declination) - cbp * Math.sin(moonData.declination) * Math.cos(dl);
+	double pa = 0.0;
+	if (x != 0.0 || y != 0.0) pa = -Math.atan2(y, x);
+	return pa;
+    }
+    
+    /**
+     * Returns the position angle between two bodies in horizontal coordinates
+     * @param moonData Position of body 1
+     * @param sunData Position of body 2
+     * @return Position angle in radians
+     */
+    public static double getPositionAngleHoriz(EphemData moonData, EphemData sunData) {
+	double dl = sunData.azimuth - moonData.azimuth;
+	double cbp = Math.cos(sunData.elevation);
+	double y = Math.sin(dl) * cbp;
+	double x = Math.sin(sunData.elevation) * Math.cos(moonData.elevation) - cbp * Math.sin(moonData.elevation) * Math.cos(dl);
+	double pa = 0.0;
+	if (x != 0.0 || y != 0.0) pa = -Math.atan2(y, x);
+	return pa;
     }
 }

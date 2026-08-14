@@ -38,7 +38,7 @@ public class EphemMoon extends EphemReduction {
      * @return Array with ecliptic longitude, latitude (0), distance, and angular radius of the Sun
      */
     @Override
-    protected double[] getBodyPosition() {
+    public double[] getBodyPosition() {
 	double t = EarthAngles.toCenturiesRespectJ2000(jd_UT, true);
 	
 	// These expansions up to t^7 for the mean elements are taken from S. L. Moshier

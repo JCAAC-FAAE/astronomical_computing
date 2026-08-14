@@ -25,9 +25,10 @@ public class EphemPlanets extends EphemReduction {
 	new double[] {-1.037925696095382, -0.1268092611155217, -0.07404282940865300, 4.227374301983514E-03, -1.412107207092049E-02, -5.145341154826345E-03, 0, 2, 13}, // Apophis, JPL elements (Horizons)
 	//new double[] {-2.594982968100301E-01, -2.604198475982948, -1.161962651205037, 7.551958208072309E-03, 5.004810090124190E-03, 2.674350852369668E-03, 0, 0.03, 14}, // 2024 YR4, JPL elements
     };
-    private static final String[] BODY_NAME = "Sun,Mercury,Venus,Mars,Jupiter,Saturn,Uranus,Neptune,Pluto,EMB,Earth,Moon,Ceres,Apophis,2024 YR4,Pallas,Juno,Vesta,Iris,Hygiea".split(","); // Keep consistent with SOLAR_SYSTEM_DATA !
+    /** List of body names */
+    protected static final String[] BODY_NAME = "Sun,Mercury,Venus,Mars,Jupiter,Saturn,Uranus,Neptune,Pluto,EMB,Earth,Moon,Ceres,Apophis,2024 YR4,Pallas,Juno,Vesta,Iris,Hygiea".split(","); // Keep consistent with SOLAR_SYSTEM_DATA !
 
-    private int body = 0;
+    protected int body = 0;
     private double lastPos[][], lastJD;
     private int timeStepSeconds = 8640;
 
@@ -313,7 +314,7 @@ public class EphemPlanets extends EphemReduction {
 	return CoordinateSystem.rotate(out, CoordinateSystem.getRotX(rotAngles[4]));
     }
 
-    private double[] equatorialJ2000ToEclipticOfDate(double[] pv, double jd_UT) {
+    protected double[] equatorialJ2000ToEclipticOfDate(double[] pv, double jd_UT) {
 	return CoordinateSystem.rotate(precessionLaskarToOrFromJ2000(pv, jd_UT, false), CoordinateSystem.getRotX(EarthAngles.meanObliquity(jd_UT)));
     }
 

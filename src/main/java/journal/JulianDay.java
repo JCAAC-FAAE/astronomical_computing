@@ -129,8 +129,10 @@ public class JulianDay {
      * @return A date/time String as YYYY-MM-DD hh:mm:ss.sss
      */
     public String toString() {
+	String s = Util.formatValue(second, 3);
+	String sz = s.length() <= 5 ? "0" : "";
 	return ""+year + "-" + Util.fmt02(month, "-") + Util.fmt02(day, " ") + 
-		Util.fmt02(hour, ":") + Util.fmt02(minute, ":") + Util.formatValue(second, 3);
+		Util.fmt02(hour, ":") + Util.fmt02(minute, ":") + sz + s;
     }
 
     /**
