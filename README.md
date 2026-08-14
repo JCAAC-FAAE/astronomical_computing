@@ -89,6 +89,28 @@ detail the cases of Apophis and 2024 YR4. Apophis is a potentially dangerous bod
 size of around 400 m, that will pass very close to the Earth on April, 13, 2029. On the other hand, 2024
 YR4 may collide with the Moon in 2032.
 
+---
+
+[`No. 6, Aug. 2026, xx–xx`](https://www.federacionastronomica.es/index.php/the-journal/archive/contents/808-efemerides-precisas-mediante-integracion-numerica)
+
+## Cálculo de las fases de los eclipses
+
+> Coincidiendo con el inminente eclipse total de Sol visible desde España, presentamos en la sección
+de cálculo astronómico un algoritmo iterativo para obtener las circumstancias de cualquier eclipse
+de Sol o Luna que tenga lugar desde la posición de un observador en la Tierra. En este artículo se
+hace uso de los algoritmos presentados en números anteriores de JCAAC para obtener las posiciones
+precisas del Sol y de la Luna, válidos durante miles de años. Los resultados son compatibles con los
+proporcionados en otros servicios de Internet, con discrepancias de pocos segundos.
+
+
+## Computation of the phases of eclipses
+
+> Now that we have an inminent total solar eclipse visible from Spain, we present in the astronomical
+computing section an iterative algorithm to obtain the circumtances of any solar or lunar eclipse taking
+place from the point of view of an observer on Earth. In this article we use the algorithms presented
+in previous issues of JCAAC to obtain the accurate positions of the Sun and the Moon, applicable
+during several millenia. The results are compatible with those provided in other web services, with
+discrepancies of few seconds.
 
 <!-- plantilla para incluir siguientes números en el mismo repositorio
 
